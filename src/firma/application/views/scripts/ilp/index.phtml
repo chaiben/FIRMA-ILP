@@ -1,0 +1,98 @@
+<?php $this->headScript()->prependFile('/js/controllers/ilp/index.js'); ?>
+<?php $this->headScript()->prependFile('/js/vendor/jquery.validate.js'); ?>
+<?php $this->headScript()->prependFile('/js/vendor/miniapplet.js'); ?>
+
+<link href="/css/controllers/ilp/index.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    var error = {
+        required: '<?php echo $this->translate("Campo obligatorio"); ?>',
+        dni_format : '<?php echo $this->translate("El DNI tiene que tener 9 caracteres. Ej: 12345678A"); ?>',
+        sign : '<?php echo $this->translate("Error al guardar la firma"); ?>'
+    }
+
+    $(function(){
+        $( "#accordion" ).accordion({
+            heightStyle: "content",
+            collapsible: true
+        });
+        $( ".datepicker" ).dateEntry({
+            dateFormat: "dmy/",
+        });
+        MiniApplet.cargarMiniApplet('http://firmadigital.com:8080/');
+        //MiniApplet.setServlets("http://firmadigital.com:8080/afirma-signature-storage/StorageService", "http://firmadigital.com:8080/afirma-signature-retriever/RetrieveService");
+        ILP.Controllers.Index.Init();
+    });
+</script>
+<h4>ILP: <?php echo $this->ilp->__get("ilp_title"); ?></h4>
+<div id="accordion">
+    <h3>Datos de la ILP</h3>
+    <div>
+        <div class="row">
+            <div class="one-half column">
+                <strong><?php echo $this->translate("ILP Title: "); ?></strong>
+                <?php echo $this->ilp->__get("ilp_title"); ?>
+            </div>
+            <div class="one-half column">
+                <strong><?php echo $this->translate("Código: "); ?></strong>
+                <?php echo $this->ilp->__get("ilp_code"); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="one-half column">
+                <strong><?php echo $this->translate("Fecha de inicio: "); ?></strong>
+                <?php echo $this->ilp->getStartDate(); ?>
+            </div>
+            <div class="one-half column">
+                <strong><?php echo $this->translate("Fecha de fin: "); ?></strong>
+                <?php echo $this->ilp->getEndDate(); ?>
+            </div>
+        </div>
+        <div class="row">
+            <label><?php echo $this->translate("Descripción corta"); ?></label>
+            <p><?php echo nl2br($this->ilp->__get("ilp_short_desc")); ?></p>
+        </div>
+    </div>
+    <h3><?php echo $this->translate("Resumen"); ?></h3>
+    <div>
+        <p><?php echo nl2br($this->ilp->__get("ilp_long_desc")); ?></p>
+    </div>
+    <h3><?php echo $this->translate("Descripción detallada"); ?></h3>
+    <div>
+        <p><?php echo nl2br($this->ilp->__get("ilp")); ?></p>
+    </div>
+</div>
+<hr/>
+<h4><?php echo $this->translate("Quiero firmar"); ?></h4>
+<form action="">
+    <div>
+        <div class="six columns">
+            <div class="row">
+                <label for="name_input"><?php echo $this->translate("Nombre"); ?></label>
+                <input class="u-full-width" type="text" placeholder="" id="name_input" name="name_input" >
+            </div>
+            <div class="row">
+                <label for="first_surname"><?php echo $this->translate("Primer Apellido"); ?></label>
+                <input class="u-full-width" type="text" placeholder="" id="first_surname" name="first_surname">
+            </div>
+            <div class="row">
+                <label for="second_surname"><?php echo $this->translate("Segundo Apellido"); ?></label>
+                <input class="u-full-width" type="text" placeholder="" id="second_surname" name="second_surname">
+            </div>
+        </div>
+        <div class="six columns">
+            <div class="row">
+                <label for="birthday_input"><?php echo $this->translate("Fecha de nacimiento"); ?></label>
+                <input class="u-full-width datepicker" type="text" placeholder="<?php echo $this->translate("Ej.: dd/mm/aaaa"); ?>" id="birthday_input" name="birthday_input">
+            </div>
+            <div class="row">
+                <label for="birthday_input"><?php echo $this->translate("DNI"); ?></label>
+                <input class="u-full-width" type="text" placeholder="<?php echo $this->translate("Ej.: 12345678A");?>" id="doc" name="doc">
+            </div>
+            <div class="row u-pull-right">
+                <label>&nbsp;</label>
+                <input type="hidden" id="ilp_code" value="<?php echo $this->ilp->__get("ilp_code"); ?>" />
+                <input class="button-primary" type="submit" id="sign_btn" value="<?php echo $this->translate("Firmar"); ?>" />
+            </div>
+        </div>
+    </div>
+</form>

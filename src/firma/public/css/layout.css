@@ -1,0 +1,13 @@
+.top{
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0px;
+    margin-bottom: 33px;
+}
+.top .header{
+    font-size: 64px;
+    color: #800000;
+    margin-top: 15px;
+}
+.top .logo{
+    text-align: right;
+}

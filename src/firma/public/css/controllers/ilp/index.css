@@ -1,0 +1,17 @@
+#accordion .row{
+    margin: 0px 0px 10px 0px;
+}
+#accordion .row:last-child{
+    margin-bottom: 0px;
+}
+input{
+    margin-bottom: 5px;
+}
+input.error{
+    background-color: #fcc;
+    border-color: #f00;
+}
+label.error{
+    color: #f00;
+    font-size: 11px;
+}
