@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "hashicorp/precise32"
+  config.vm.box = "package.box"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -23,12 +23,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-config.vm.network :private_network, ip: "192.168.33.10"
+# config.vm.network :private_network, ip: "192.168.1.100"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-# config.vm.network :public_network, ip: "192.168.1.10"
+config.vm.network :public_network, ip: "192.168.1.17"
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
@@ -38,7 +38,7 @@ config.vm.network :private_network, ip: "192.168.33.10"
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-config.vm.synced_folder "./src", "/home/vagrant/src"
+config.vm.synced_folder "src", "/home/vagrant/src"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
